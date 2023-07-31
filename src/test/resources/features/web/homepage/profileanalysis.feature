@@ -12,5 +12,17 @@ Feature: Profile Analysis Feature
 
     Examples:
       | user  | repo_count | follower_count | following_count | gists_count |
-      | Smith |  229       | 119            | 192             | 94          |
+      | Smith | 229        | 119            | 192             | 95          |
+
+
+  Scenario Outline: Validate a user may see correct employment details
+    When a user seaches for "<user>"
+    Then the company tag is "<company_tag>"
+    And the location is "<location>"
+    And the link is "<link>"
+
+    Examples:
+      | user  | company_tag | location          | link                        |
+      | Smith | @elastic    | South Amana, Iowa | https://http//nlsmith.com/  |
+
 
