@@ -2,7 +2,6 @@ package steps;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -74,5 +73,10 @@ public class HomePageSteps {
     @Then("the link is {string}")
     public void theLinkIs(String expected) {
         assertTrue(homePage.isExpectedEmployerLink(expected));
+    }
+
+    @Then("{string} is in the follower list")
+    public void isInTheFollowerList(String expected) {
+        assertTrue(homePage.isFollower(expected));
     }
 }

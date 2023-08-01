@@ -26,3 +26,10 @@ Feature: Profile Analysis Feature
       | Smith | @elastic    | South Amana, Iowa | https://http//nlsmith.com/  |
 
 
+  Scenario Outline: Validate that a user has a following
+    When a user seaches for "<user>"
+    Then "<follower>" is in the follower list
+
+    Examples:
+      | user  | follower       |
+      | Smith | Nevilleburnell |

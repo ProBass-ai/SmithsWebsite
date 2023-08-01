@@ -22,6 +22,9 @@ public class HomePage {
     private final By byState = By.xpath("//div[@class='links']/p[2]");
     private final By byCompanyLink = By.xpath("//div[@class='links']/a");
     private final By byFollowerNames = By.xpath("//div[@class='followers']/article//div/h4");
+    private By getByFollowerName(String followerName){
+        return By.xpath("//div[@class='followers']/article//div/h4[text()=translate('" + followerName + "', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]");
+    }
 
     public HomePage(WebDriver driver){
         this.driver = driver;
@@ -65,7 +68,7 @@ public class HomePage {
 
     public boolean isExpectedEmployerLink(String expected){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        return wait.until(ExpectedConditions.textToBePresentInElementLocated(byCompanyLink, expected));
+        return wait.until(ExpectedConditions.attributeToBe(byCompanyLink, "href" , expected));
     }
 
     public List<String> getFollowerNames(){
@@ -74,5 +77,15 @@ public class HomePage {
             nameList.add(element.getText());
         }
         return nameList;
+    }
+
+    public boolean isFollower(String followerName){
+         try {
+             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+             wait.until(ExpectedConditions.visibilityOfElementLocated(getByFollowerName(followerName)));
+             return true;
+         } catch (Exception e){
+             return false;
+         }
     }
 }
