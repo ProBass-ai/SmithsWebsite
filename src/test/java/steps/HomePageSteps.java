@@ -5,22 +5,34 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import managers.PageObjectManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pages.HomePage;
-import utils.TestContext;
 
 import static junit.framework.TestCase.assertTrue;
 
 public class HomePageSteps {
     PageObjectManager pageObjectManager;
-    TestContext testContext = new TestContext();
     HomePage homePage;
     WebDriver driver;
 
     @Before
     public void setUp(){
-        this.driver = testContext.getDriver();
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        //the sandbox removes unnecessary privileges from the processes that don't need them in Chrome, for security purposes. Disabling the sandbox makes your PC more vulnerable to exploits via webpages, so Google don't recommend it.
+        options.addArguments("--no-sandbox");
+        //"--disable-dev-shm-usage" Only added when CI system environment variable is set or when inside a docker instance. The /dev/shm partition is too small in certain VM environments, causing Chrome to fail or crash.
+        options.addArguments("--disable-dev-shm-usage");
+        if(!System.getProperty("os.name").contains("Windows")){
+            options.addArguments("--headless");
+        }
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
         this.pageObjectManager = new PageObjectManager(driver);
         this.homePage = pageObjectManager.getHomePage();
     }

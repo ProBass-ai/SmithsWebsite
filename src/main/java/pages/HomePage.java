@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.TestHelper;
 
 import java.time.Duration;
 import java.util.LinkedList;
@@ -37,33 +38,28 @@ public class HomePage {
     }
 
     public boolean isExpectedRepoCount(String expected){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        return wait.until(ExpectedConditions.textToBePresentInElementLocated(byRepoCount, expected));
+        return TestHelper.isTextPresentInElement(driver, byRepoCount, expected);
+
     }
 
     public boolean isExpectedFollowerCount(String expected){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        return wait.until(ExpectedConditions.textToBePresentInElementLocated(byFollowerCount, expected));
+        return TestHelper.isTextPresentInElement(driver, byFollowerCount, expected);
     }
 
     public boolean isExpectedFollowingCount(String expected){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        return wait.until(ExpectedConditions.textToBePresentInElementLocated(byFollowingCount, expected));
+        return TestHelper.isTextPresentInElement(driver, byFollowingCount, expected);
     }
 
     public boolean isExpectedGistsCount(String expected){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        return wait.until(ExpectedConditions.textToBePresentInElementLocated(byGistsCount, expected));
+        return TestHelper.isTextPresentInElement(driver, byGistsCount, expected);
     }
 
     public boolean isExpectedEmployingCompany(String expected){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        return wait.until(ExpectedConditions.textToBePresentInElementLocated(byEmployingCompany, expected));
+        return TestHelper.isTextPresentInElement(driver, byEmployingCompany, expected);
     }
 
     public boolean isExpectedState(String expected){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        return wait.until(ExpectedConditions.textToBePresentInElementLocated(byState, expected));
+        return TestHelper.isTextPresentInElement(driver, byState, expected);
     }
 
     public boolean isExpectedEmployerLink(String expected){
